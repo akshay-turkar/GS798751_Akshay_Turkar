@@ -1,0 +1,38 @@
+
+.full-height-layout {
+  height: 100vh;
+}
+.slider{
+  background-color: #fff;
+}
+.header{
+  padding: 0;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+}
+.logo{
+  height: 40px; 
+  margin-left: 16px;
+}
+.account{
+  margin-right: 16px;
+}
+.slider-button{
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 16px;
+  background-color: rgba(0, 0, 0, 0.06);
+}
+.project-title{
+  font-size: 20px;
+  font-weight: 600;
+}
+.content{
+  margin: 24px 16px;
+  padding: 24;
+  min-height: 280;
+  background-color: #fff;
+  border-radius: 8px;
+}
