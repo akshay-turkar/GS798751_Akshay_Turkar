@@ -1,9 +1,10 @@
 import React from 'react';
+import '../../common-style.css';
 
 const Charts = () => {
   return (
-    <div>
-      <h1>Charts</h1>
+    <div className="common-background">
+      <h1 className="common-heading">Charts</h1>
     </div>
   );
 };

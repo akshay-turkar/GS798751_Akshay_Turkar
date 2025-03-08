@@ -1,0 +1,104 @@
+.common-background {
+  background-color: #f9f9f9;
+}
+
+.common-heading {
+  color: #333;
+}
+
+
+
+.ant-btn-primary {
+  background-color: #ffab91 !important;
+  border-color: #faddd5 !important;
+  color: #1a1a1a !important;
+  font-weight: 600;
+}
+
+.ant-btn-primary:hover {
+  background-color: #ffab91 !important;
+  border-color: #895b4e !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+.ant-input {
+  border-radius: 4px !important; 
+}
+
+.ant-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important; 
+}
+
+.ant-table-footer{
+    background-color: #fff !important;
+}
+
+.table-container {
+    height: calc(100vh - 90px);
+    overflow: auto; /* Changed from scroll to auto */
+}
+
+.ant-table-cell{
+    padding: 11px !important;
+}
+
+.ant-table-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-container{
+    background-color: #fff;
+    float: left;
+    margin: 16px 12px;
+}
+
+.primary-btn {
+  margin-left: 10px
+}
+
+.icon-action {
+  margin-right: 8px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.icon-action:hover {
+  color: #1890ff;
+}
+
+.ant-tooltip-inner {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #d9d9d9 !important;
+}
+
+.ant-tooltip-arrow-content {
+  background-color: #ffffff !important;
+}
+
+/* Common scroll styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #c1c1c1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8a8a8;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-button:vertical:start:decrement,
+::-webkit-scrollbar-button:vertical:end:increment {
+  display: none;
+}
+
