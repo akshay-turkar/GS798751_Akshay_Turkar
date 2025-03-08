@@ -72,27 +72,30 @@ const Store = () => {
   
 
   // Read the "stores" sheet from the sample-data.xlsx file
-  const readStoresSheet = () => {
-    fetch(sampleData)
-      .then(response => response.arrayBuffer())
-      .then(data => {
-        const workbook = XLSX.read(data, { type: 'array' });
-        const sheetName = 'Stores';
-        const worksheet = workbook.Sheets[sheetName];
-        const jsonData = XLSX.utils.sheet_to_json<DataType>(worksheet);
-        const dataArray = jsonData.map((item, index) => ({ ...item,  key: index }));
-        setData(dataArray);
-      });
+  const readStoresSheet = async () => {
+    try {
+      const response = await fetch(sampleData);
+      const data = await response.arrayBuffer();
+      const workbook = XLSX.read(data, { type: 'array' });
+      const sheetName = 'Stores';
+      const worksheet = workbook.Sheets[sheetName];
+      const jsonData = XLSX.utils.sheet_to_json<DataType>(worksheet);
+      const dataArray = jsonData.map((item, index) => ({ ...item, key: index }));
+      setData(dataArray);
+    } catch (error) {
+      console.error('Error reading Stores sheet:', error);
+    }
   };
 
-  const handleAddStore = () => {
-    form.validateFields().then(values => {
+  const handleAddStore = async () => {
+    try {
+      const values = await form.validateFields();
       if (editingKey !== null) {
         const updatedData = data.map(item => 
           item.key === editingKey ? { ...item, Label: values.label, City: values.city, State: values.state } : item
         );
         setData(updatedData);
-        updateXlsxSheet(updatedData);
+        await updateXlsxSheet(updatedData);
       } else {
         const newStore: DataType = {
           key: data.length,
@@ -103,12 +106,14 @@ const Store = () => {
         };
         const updatedData = [...data, newStore];
         setData(updatedData);
-        updateXlsxSheet(updatedData);
+        await updateXlsxSheet(updatedData);
       }
       setIsModalVisible(false);
       form.resetFields();
       setEditingKey(null);
-    });
+    } catch (error) {
+      console.error('Error adding Store:', error);
+    }
   };
 
   const handleEdit = (record: DataType) => {
@@ -121,10 +126,14 @@ const Store = () => {
     setIsModalVisible(true);
   };
 
-  const handleDelete = (key: React.Key) => {
-    const updatedData = data.filter(item => item.key !== key);
-    setData(updatedData);
-    updateXlsxSheet(updatedData);
+  const handleDelete = async (key: React.Key) => {
+    try {
+      const updatedData = data.filter(item => item.key !== key);
+      setData(updatedData);
+      await updateXlsxSheet(updatedData);
+    } catch (error) {
+      console.error('Error deleting Store:', error);
+    }
   };
 
   const showModal = () => {
@@ -137,16 +146,17 @@ const Store = () => {
     setEditingKey(null);
   };
 
-  const updateXlsxSheet = (updatedData: DataType[]) => {
-    fetch(sampleData)
-      .then(response => response.arrayBuffer())
-      .then(data => {
-        const workbook = XLSX.read(data, { type: 'array' });
-        const worksheet = XLSX.utils.json_to_sheet(updatedData);
-        workbook.Sheets['Stores'] = worksheet;
-        const updatedWorkbook = XLSX.write(workbook, { type: 'array' });
-        // Here you can send the updatedWorkbook to your server or handle it as needed
-      });
+  const updateXlsxSheet = async (updatedData: DataType[]) => {
+    try {
+      const response = await fetch(sampleData);
+      const data = await response.arrayBuffer();
+      const workbook = XLSX.read(data, { type: 'array' });
+      const worksheet = XLSX.utils.json_to_sheet(updatedData);
+      workbook.Sheets['SKUs'] = worksheet;
+      const updatedWorkbook = XLSX.write(workbook, { type: 'array' });
+    } catch (error) {
+      console.error('Error updating XLSX sheet:', error);
+    }
   };
 
   useEffect(() => {

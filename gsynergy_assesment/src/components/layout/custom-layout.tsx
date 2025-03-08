@@ -8,6 +8,7 @@ import {
   MenuUnfoldOutlined,
   ShopOutlined,
   UserOutlined,
+  LogoutOutlined,
 } from '@ant-design/icons';
 import { Avatar } from 'antd';
 import { Button, Layout, Menu, Dropdown, theme } from 'antd';
@@ -20,12 +21,22 @@ const { Header, Sider, Content } = Layout;
 const CustomLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
+  const menu = (
+    <Menu>
+      <Menu.Item key="logout" icon={<LogoutOutlined />}>
+        Logout
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
     <Layout className="full-height-layout">
       <Header className='header'>
           <img src={logo} alt="Logo" className='logo' />
           <div className='project-title'>Data Viewer App</div>
-          <Avatar className='account' size={32} icon={<UserOutlined />} /> 
+          <Dropdown overlay={menu} className='account'>
+            <Avatar size={32} icon={<UserOutlined />} />
+          </Dropdown>
       </Header>
       <Layout>
         <Sider trigger={null} collapsible collapsed={collapsed} className='slider'>
