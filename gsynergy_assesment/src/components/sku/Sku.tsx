@@ -1,9 +1,10 @@
 import React from 'react';
+import '../../common-style.css';
 
 const Sku = () => {
   return (
-    <div>
-      <h1>Sku</h1>
+    <div className="common-background">
+      <h1 className="common-heading">Sku</h1>
     </div>
   );
 };

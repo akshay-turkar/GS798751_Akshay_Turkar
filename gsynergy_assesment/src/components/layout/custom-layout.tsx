@@ -1,11 +1,13 @@
 import AppRoutes from '../../routes/routes';
 import React, { useState } from 'react';
 import {
+  AppstoreOutlined,
+  AreaChartOutlined,
+  BarChartOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  UploadOutlined,
+  ShopOutlined,
   UserOutlined,
-  VideoCameraOutlined,
 } from '@ant-design/icons';
 import { Avatar } from 'antd';
 import { Button, Layout, Menu, Dropdown, theme } from 'antd';
@@ -42,22 +44,22 @@ const CustomLayout = () => {
             items={[
               {
                 key: '/',
-                icon: <UserOutlined />,
+                icon: <ShopOutlined />,
                 label: 'Store',
               },
               {
                 key: '/sku',
-                icon: <VideoCameraOutlined />,
+                icon: <AppstoreOutlined />,
                 label: 'SKU',
               },
               {
                 key: '/planning',
-                icon: <UploadOutlined />,
+                icon: <AreaChartOutlined />,
                 label: 'Planning',
               },
               {
                 key: '/charts',
-                icon: <UploadOutlined />,
+                icon: <BarChartOutlined />,
                 label: 'Charts',
               },
             ]}
