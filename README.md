@@ -1,6 +1,8 @@
-# Getting Started with Create React App
+# Getting Started with GS798751_Akshay_Turkar
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## See Live
+https://gs-798751-akshay-turkar.vercel.app/
+
 
 ## Project Brief
 
