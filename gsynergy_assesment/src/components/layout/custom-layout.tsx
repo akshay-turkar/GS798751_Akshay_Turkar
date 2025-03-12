@@ -1,5 +1,5 @@
 import AppRoutes from '../../routes/routes';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   AppstoreOutlined,
   AreaChartOutlined,
@@ -20,7 +20,18 @@ import logo from '../../assets/gs-logo.svg';
 const { Header, Sider, Content } = Layout;
 const CustomLayout = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [selectedKey, setSelectedKey] = useState(window.location.pathname);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setSelectedKey(window.location.pathname);
+  }, []);
+
+  const handleMenuClick = ({ key }: { key: string }) => {
+    setSelectedKey(key);
+    navigate(key);
+  };
+
   const menu = (
     <Menu>
       <Menu.Item key="logout" icon={<LogoutOutlined />}>
@@ -50,8 +61,8 @@ const CustomLayout = () => {
           <Menu
             theme="light"
             mode="inline"
-            defaultSelectedKeys={['/']}
-            onClick={({ key }) => navigate(key)}
+            selectedKeys={[selectedKey]}
+            onClick={handleMenuClick}
             items={[
               {
                 key: '/',

@@ -106,9 +106,10 @@ const Charts = () => {
         const price = sku ? sku.Price : 0;
         const cost = sku ? sku.Cost : 0;
         const salesDollars = item.SalesUnits * price;
-        const gmDollars = salesDollars - (item.SalesUnits * cost);
-        const gmPercent = (gmDollars / salesDollars) * 100;
+        const gmDollars = Math.max(salesDollars - (item.SalesUnits * cost), 0); // Ensure gmDollars is not negative
+        const gmPercent = salesDollars !== 0 ? Math.max((gmDollars / salesDollars) * 100, 0) : 0; // Ensure gmPercent is not negative
 
+        console.log('gmDollars:', gmDollars, 'gmPercent:', gmPercent);
         if (!acc[item.Week]) {
           acc[item.Week] = { gmDollars: 0, gmPercent: 0, count: 0 };
         }
@@ -147,7 +148,7 @@ const Charts = () => {
     if (StoreData.length > 0 && !selectedStore) {
       setSelectedStore(StoreData[0].ID);
     }
-  }, [planningData, StoreData, SkuData, selectedStore, StoreData]);
+  }, [planningData, StoreData, SkuData, selectedStore]);
 
   return (
     <Spin spinning={loading} size="large"> 
@@ -160,11 +161,10 @@ const Charts = () => {
             margin: '10px 10px',
             border: '1px solid #ccc',
             borderRadius: '4px',
-            
           }}
         >
           <option value="">Select Store</option>
-          {StoreData.map(store => (
+          {StoreData.slice(0, 8).map(store => ( // Show only top 8 stores
             <option key={store.ID} value={store.ID}>{store.Label}</option>
           ))}
         </select>
