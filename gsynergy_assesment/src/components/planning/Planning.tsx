@@ -3,7 +3,7 @@ import '../../common-style.css';
 import './Planning.css';
 import * as XLSX from 'xlsx';
 import sampleData from '../../assets/sample-data.xlsx'; 
-import { Table, Tooltip } from 'antd';
+import { Table, Tooltip, InputNumber } from 'antd';
 import type { TableColumnsType } from 'antd';
 
 interface DataType {
@@ -56,6 +56,29 @@ const Planning = () => {
     return '#fba3a3';
   };
 
+  const handleSalesUnitsChange = (value: number, record: any, week: string) => {
+    const updatedData = data.map(item => {
+      if (item.key === record.key) {
+        const sku = SkuData.find(sku => sku.Label === item.SKU);
+        const SalesDollars = value * (sku?.Price || 0);
+        const GMDollars = value * (sku?.Cost || 0);
+        const GMPercent = SalesDollars ? (GMDollars / SalesDollars) * 100 : 0;
+
+        return {
+          ...item,
+          [week]: {
+            SalesUnits: value,
+            SalesDollars: SalesDollars.toFixed(2),
+            GMDollars: GMDollars.toFixed(2),
+            GMPercent: GMPercent.toFixed(2),
+          },
+        };
+      }
+      return item;
+    });
+    setData(updatedData);
+  };
+
   const columns: TableColumnsType<DataType> = [
     {
       title: 'Store',
@@ -75,7 +98,13 @@ const Planning = () => {
           dataIndex: `W${week.toString().padStart(2, '0')}`,
           key: `W${week.toString().padStart(2, '0')}-SalesUnits`,
           sorter: (a: any, b: any) => a[`W${week.toString().padStart(2, '0')}`]?.SalesUnits - b[`W${week.toString().padStart(2, '0')}`]?.SalesUnits,
-          render: (_: any, record: any) => record[`W${week.toString().padStart(2, '0')}`]?.SalesUnits || 0,
+          render: (_: any, record: any) => (
+            <InputNumber
+              min={0}
+              value={record[`W${week.toString().padStart(2, '0')}`]?.SalesUnits || 0}
+              onChange={(value) => handleSalesUnitsChange(value, record, `W${week.toString().padStart(2, '0')}`)}
+            />
+          ),
         },
         {
           title: 'Sales Dollars',
